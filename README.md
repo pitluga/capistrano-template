@@ -1,6 +1,6 @@
 # Capistrano::Template
 
-TODO: Write a gem description
+A [capistrano](http://capistranorb.com/) plugin that aids in rendering templates.
 
 ## Installation
 
@@ -18,7 +18,38 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Best explained with an example deploy.rb file.
+
+```ruby
+require 'capistrano/template'
+
+set :application, "example"
+# ...
+
+task :configure_apache, :roles => :web do
+  put(template.render('vhost.conf'), "/etc/apache2/sites-available/#{application}.conf")
+end
+```
+
+## Supported Functions
+
+All supported functions live under the ```template``` namespace.
+
+### render(template_name)
+
+ERBs the given template and returns the result.
+
+## Configuration Variables
+
+### template_path
+
+The location to search for templates. Relative to the current working directory of the cap command. Defaults to ```config/deploy/templates```.
+
+
+### template_bindings
+
+An array of bindings that represent the search path for variables when rendering templates. An extension point to allow external sources for data. Defaults to ```[Bindings::CapistranoBinding.new]```
+
 
 ## Contributing
 
