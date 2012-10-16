@@ -2,6 +2,8 @@
 
 A [capistrano](http://capistranorb.com/) plugin that aids in rendering templates.
 
+[![Build Status](https://secure.travis-ci.org/pitluga/capistrano-template.png)](http://travis-ci.org/pitluga/capistrano-template)
+
 ## Installation
 
 Add this line to your application's Gemfile:
