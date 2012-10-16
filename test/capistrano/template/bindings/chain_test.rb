@@ -16,6 +16,12 @@ module Capistrano
           assert_match /baz/, exception.message
         end
 
+        def test_chains_public_methods_are_undefined
+          chain = Chain.new(HashBinding.new(:foo => 'bar'))
+          assert_raises(NoMethodError) { chain.clone }
+          assert_raises(NoMethodError) { chain.to_s }
+          assert_raises(NoMethodError) { chain.inspect }
+        end
       end
     end
   end
