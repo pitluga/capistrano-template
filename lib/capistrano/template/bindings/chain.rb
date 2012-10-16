@@ -3,9 +3,7 @@ module Capistrano
     module Bindings
       class Chain
 
-        instance_methods.each { |m| undef_method m unless m =~ /(^__|^send$|^object_id$)/ }
-
-        public :binding
+        instance_methods.each { |m| undef_method m unless m =~ /(^__|^send$|^object_id$|^binding$|^instance_eval$)/ }
 
         def initialize(*bindings)
           @bindings = bindings

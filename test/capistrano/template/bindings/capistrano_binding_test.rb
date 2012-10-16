@@ -6,28 +6,23 @@ module Capistrano
       class CapistranoBindingTest < Test::Unit::TestCase
 
         def setup
-          @current_instance = Capistrano::Configuration.new
-          Capistrano::Configuration.instance = @current_instance
-        end
-
-        def teardown
-          Capistrano::Configuration.instance = nil
+          @config = Capistrano::Configuration.new
         end
 
         def test_defined_returns_false_when_variable_is_not_available
-          script_binding = CapistranoBinding.new
+          script_binding = CapistranoBinding.new(@config)
           assert_equal(false, script_binding.exists?(:var))
         end
 
         def test_defined_returns_true_when_variable_is_available
-          @current_instance.set(:var, 'foo')
-          script_binding = CapistranoBinding.new
+          @config.set(:var, 'foo')
+          script_binding = CapistranoBinding.new(@config)
           assert_equal(true, script_binding.exists?(:var))
         end
 
         def test_fetch_returns_the_value_of_the_variable
-          @current_instance.set(:var, 'foo')
-          script_binding = CapistranoBinding.new
+          @config.set(:var, 'foo')
+          script_binding = CapistranoBinding.new(@config)
           assert_equal('foo', script_binding.fetch(:var))
         end
 
