@@ -1,6 +1,6 @@
 require 'erb'
-require 'capistrano'
 require 'capistrano/template/plugin'
+require 'capistrano/template/tasks'
 require 'capistrano/template/version'
 require 'capistrano/template/bindings/capistrano_binding'
 require 'capistrano/template/bindings/chain'
