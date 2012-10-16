@@ -10,6 +10,10 @@ module Capistrano
           Capistrano::Configuration.instance = @current_instance
         end
 
+        def teardown
+          Capistrano::Configuration.instance = nil
+        end
+
         def test_defined_returns_false_when_variable_is_not_available
           script_binding = CapistranoBinding.new
           assert_equal(false, script_binding.exists?(:var))

@@ -3,6 +3,11 @@ require File.expand_path('../../../test_helper', __FILE__)
 class PluginTest < Test::Unit::TestCase
   def setup
     @config = Capistrano::Configuration.new
+    Capistrano::Configuration.instance = @config
+  end
+
+  def teardown
+    Capistrano::Configuration.instance = nil
   end
 
   def test_template_plugin_is_available

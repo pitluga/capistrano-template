@@ -3,6 +3,8 @@ module Capistrano
     module Bindings
       class Chain
 
+        public :binding
+
         def initialize(*bindings)
           @bindings = bindings
         end

@@ -3,7 +3,7 @@ module Capistrano
     module Plugin
       def render(template)
         content = File.read(File.join(template_path, template))
-        ERB.new(content).result(lambda { binding_chain })
+        ERB.new(content).result(chain.binding)
       end
 
       private
@@ -15,8 +15,8 @@ module Capistrano
         fetch(:template_bindings, [Bindings::CapistranoBinding.new])
       end
 
-      def binding_chain
-        @binding_chain ||= Bindings::Chain.new(*template_bindings)
+      def chain
+        @__template_chain ||= Bindings::Chain.new(*template_bindings)
       end
     end
   end
