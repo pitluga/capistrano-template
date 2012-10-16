@@ -50,7 +50,7 @@ The location to search for templates. Relative to the current working directory 
 
 ### template_bindings
 
-An array of bindings that represent the search path for variables when rendering templates. An extension point to allow external sources for data. Defaults to ```[Bindings::CapistranoBinding.new]```
+An array of bindings that represent the search path for variables when rendering templates. An extension point to allow external sources for data. Defaults to ```[Bindings::CapistranoBinding.new(self)]```
 
 
 ## Contributing
