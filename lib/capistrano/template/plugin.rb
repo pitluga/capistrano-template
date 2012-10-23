@@ -11,7 +11,14 @@ module Capistrano
         published_files.push(:template => template, :location => location, :options => options)
       end
 
-      private
+      def stage
+        Operations::Stage.new(self).execute
+      end
+
+      def staging_dir
+        fetch(:staging_dir, '/tmp/cap-templates')
+      end
+
       def published_files
         set(:__template_published_files, []) unless exists?(:__template_published_files)
         fetch(:__template_published_files)
@@ -24,6 +31,15 @@ module Capistrano
       def template_bindings
         fetch(:template_bindings, [Bindings::CapistranoBinding.new(self)])
       end
+
+      def without_current_task(&block)
+        original = Thread.current[:task_call_frames]
+        Thread.current[:task_call_frames] = []
+        block.call
+        Thread.current[:task_call_frames] = original
+      end
+
+      private
 
       def chain
         @__template_chain ||= Bindings::Chain.new(*template_bindings)

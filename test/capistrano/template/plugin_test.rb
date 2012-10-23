@@ -34,4 +34,15 @@ class PluginTest < Test::Unit::TestCase
       @config.template.publish('hello.erb', 'hello', :mode => '0640', :roles => :app)
     end
   end
+
+  def test_without_current_task_removes_any_existing_task_call_frames
+    Thread.current[:task_call_frames] = :original
+    called = false
+    @config.template.without_current_task do
+      called = true
+      assert_equal [], Thread.current[:task_call_frames]
+    end
+    assert_equal true, called
+    assert_equal :original, Thread.current[:task_call_frames]
+  end
 end
